@@ -45,14 +45,17 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {/* 7. itemsをマップして表示 */}
+    <div>
       <button onClick={getEvents}>Get Events</button>
-      <ul>
-        {items.map((item, index) => (
-          <li key={index}>{item.summary}</li>
-        ))}
-      </ul>
+      {items.map((item, index) => (
+        <div key={index}>
+          <h2>{item.summary}</h2>
+          <p>{item.description}</p>
+          <p>{item.start.dateTime}</p>
+          <p>{item.end.dateTime}</p>
+
+        </div>
+      ))}
     </div>
   );
 }
