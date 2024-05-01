@@ -1,20 +1,24 @@
 // 1.パッケージを読み込む
 import ApiCalendar from "react-google-calendar-api";
 import './App.css';
+import config from "./apiGoogleconfig.json"
+
+const apiCalendar = new ApiCalendar(config);
+const calendarId = "9b217b7c39e5a52468774ce79daa0703f78ad7928c8bae104cdaa811be68618e@group.calendar.google.com";
 
 function App() {
   const getEvents = async () => {
     return new Promise(async (resolve, reject) => {
       // 2.認証チェック
-      if (ApiCalendar.sign) {
+      if (apiCalendar.sign) {
          // 3.イベントの取得
-         ApiCalendar.listEvents({
+         apiCalendar.listEvents({
             timeMin: new Date().toISOString(),
-            timeMax: new Date().addDays(10).toISOString(),
+            timeMax: new Date(new Date() + 864000).toISOString(),
             showDeleted: true,
             maxResults: 10,
             orderBy: 'updated'
-          }).then(({ result }) => {
+          },calendarId).then(({ result }) => {
             if (result.items) {
               console.log("Events From Calendar", result.items);
             } else {
@@ -25,7 +29,7 @@ function App() {
           });
       } else {
         // 2.認証していなければOAuth認証
-        ApiCalendar.handleAuthClick();
+        await apiCalendar.handleAuthClick();
         reject("Sign in first");
       
       }
