@@ -18,15 +18,18 @@ function App() {
       if (apiCalendar.sign) {
         // 4.イベントの取得
         apiCalendar.listEvents({
-          // 先月の予定を取得
-          timeMin: new Date(new Date().getFullYear(), new Date().getMonth() - 1).toISOString(),
-          timeMax: new Date().toISOString(),
+          timeMin: (new Date()).toISOString(),
           showDeleted: true,
           maxResults: 10,
           orderBy: 'updated'
         }, calendarId).then(({ result }) => {
           if (result.items) {
-            console.log("Events From Calendar", result.items);
+            // itemのdataTimeを2021/01/01 00:00の形式に変換
+            result.items.forEach((item) => {
+              item.start.dateTime = new Date(item.start.dateTime).toLocaleString();
+              item.end.dateTime = new Date(item.end.dateTime).toLocaleString();
+            });
+            
             // 5. itemsを更新する
             setItems(result.items);
           } else {
@@ -50,9 +53,9 @@ function App() {
       {items.map((item, index) => (
         <div key={index}>
           <h2>{item.summary}</h2>
-          <p>{item.description}</p>
-          <p>{item.start.dateTime}</p>
-          <p>{item.end.dateTime}</p>
+          <p>説明：{item.description}</p>
+          <p>日時：{item.start.dateTime}~{item.end.dateTime}</p>
+          <p>場所：{item.location}</p>
         </div>
       ))}
     </div>
