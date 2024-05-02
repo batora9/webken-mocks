@@ -29,7 +29,7 @@ function App() {
               item.start.dateTime = new Date(item.start.dateTime).toLocaleString();
               item.end.dateTime = new Date(item.end.dateTime).toLocaleString();
             });
-            
+
             // 5. itemsを更新する
             setItems(result.items);
           } else {
@@ -51,11 +51,15 @@ function App() {
     <div>
       <button onClick={getEvents}>Get Events</button>
       {items.map((item, index) => (
-        <div key={index}>
+        <div key={index} className='eventTable'>
           <h2>{item.summary}</h2>
-          <p>説明：{item.description}</p>
+          {/* <p>説明：{item.description}</p>
           <p>日時：{item.start.dateTime}~{item.end.dateTime}</p>
-          <p>場所：{item.location}</p>
+          <p>場所：{item.location}</p> */}
+          {/* ボタンを押したら詳細を表示する */}
+          <button onClick={() => {
+            alert(`説明：${item.description}\n日時：${item.start.dateTime}~${item.end.dateTime}\n場所：${item.location}`);
+          }}>詳細</button>
         </div>
       ))}
     </div>
