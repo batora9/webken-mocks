@@ -53,7 +53,6 @@ function App() {
           <p>{item.description}</p>
           <p>{item.start.dateTime}</p>
           <p>{item.end.dateTime}</p>
-
         </div>
       ))}
     </div>
