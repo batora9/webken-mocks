@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie Intro</title>
+</head>
+<body>
+    <input type="text" id="name" placeholder="Enter your name">
+    <button onclick="setCookie()">Set Cookie</button>
+    <button onclick="getCookie()">Get Cookie</button>
+    <button onclick="deleteCookie()">Delete Cookie</button>
+    <script>
+        function setCookie() {
+            var name = document.getElementById('name').value;
+            document.cookie = "name=" + name;
+        }
+
+        function getCookie() {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.indexOf('name=') === 0) {
+                    alert(cookie.substring(5));
+                    return;
+                }
+            }
+            alert('Name cookie not found');
+        }
+
+        function deleteCookie() {
+            document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        }
+    </script>
+</body>
+</html>
